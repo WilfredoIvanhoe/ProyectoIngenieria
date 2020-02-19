@@ -7,3 +7,6 @@ def index(request):
 
 def paquetes(request):
     return render(request, 'paquetes.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
