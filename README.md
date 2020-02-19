@@ -1,1 +1,2 @@
-# Proyecto de AutoLavado para ingenieria de software, usando Django y Firebase, además de varios templates gratuitos de html.
+# Proyecto de AutoLavado para ingenieria de software.
+Basado en DJango, Firebase y varios templates gratuitos de html
