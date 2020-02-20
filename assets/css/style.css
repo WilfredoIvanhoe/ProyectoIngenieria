@@ -269,6 +269,12 @@ h2.pagetitle {
 .medium {
 	font-weight: normal;
 }
+.centered-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
 
 /* =========================================================
 04. Navigation
@@ -488,6 +494,9 @@ section.spacer {
 }
 .spacer.orange,.section.orange {
 	background:#f36f36;
+}
+.spacer.red,.section.red {
+	background:#ff6666;
 }
 
 section.spacer.bg2 {
@@ -756,6 +765,10 @@ section#services .service-box h2 {
 
 section#services.section.orange .service-box:hover {
 	background:#f36518;
+}
+
+section#services.section.red .service-box:hover {
+	background:#ff6666;
 }
 
 
