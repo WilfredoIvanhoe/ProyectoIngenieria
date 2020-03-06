@@ -98,6 +98,16 @@ class Lavado(models.Model):
     class Meta:
         managed = True
         db_table = 'lavado'
+
+
+class RegistroInventario(models.Model):
+    registroid = models.AutoField(primary_key=True)
+    articulo_idarticulo = models.ForeignKey(Articulo, models.DO_NOTHING, db_column='articulo_idarticulo')
+    cantidad_anterior =  models.IntegerField()
+    cantidad =  models.IntegerField()
+    fecha = models.DateField()
+    hora  = models.TimeField()
+    
 """
 class LavadoHasArticulo(models.Model):
     lavado_idlavado = models.OneToOneField(Lavado, models.DO_NOTHING, db_column='lavado_idlavado', primary_key=True)
