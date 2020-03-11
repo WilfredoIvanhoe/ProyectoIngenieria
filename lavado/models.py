@@ -9,6 +9,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from datetime import date
+from django.utils.timezone import now
 
 """
 class RolEmpleado(models.Model):
@@ -36,8 +38,8 @@ class Paquete(models.Model):
 
 class LugarCompra(models.Model):
     idlugar_compra = models.AutoField(primary_key=True)
-    nombre_tienda = models.CharField(max_length=15)
-    direccion = models.CharField(max_length=45)
+    nombre_tienda = models.CharField(max_length=30)
+    direccion = models.CharField(max_length=100)
 
     class Meta:
         managed = True
@@ -53,7 +55,7 @@ class Articulo(models.Model):
     precio = models.FloatField()
     cantidad = models.IntegerField()
     codigo_barras = models.CharField(max_length=30, blank=True, null=True)
-    lugar_compra_idlugar_compra = models.ForeignKey('LugarCompra', models.DO_NOTHING, db_column='lugar_compra_idlugar_compra', default = -1)
+    fk_lugar_compra = models.ForeignKey('LugarCompra', models.DO_NOTHING, db_column='lugar_compra_idlugar_compra', default = -1)
 
     class Meta:
         managed = True
@@ -105,9 +107,15 @@ class RegistroInventario(models.Model):
     articulo_idarticulo = models.ForeignKey(Articulo, models.DO_NOTHING, db_column='articulo_idarticulo')
     cantidad_anterior =  models.IntegerField()
     cantidad =  models.IntegerField()
-    fecha = models.DateField()
-    hora  = models.TimeField()
+    fecha = models.DateField(default=now, editable=False)
+    hora  = models.TimeField(default=now, editable=False)
     
+
+@receiver(post_save, sender=Articulo)
+def registro_inventario_save(sender, instance, **kwargs):
+    registro = RegistroInventario(articulo_idarticulo = instance, cantidad_anterior = instance.cantidad,
+                cantidad = instance.cantidad)
+    registro.save()
 """
 class LavadoHasArticulo(models.Model):
     lavado_idlavado = models.OneToOneField(Lavado, models.DO_NOTHING, db_column='lavado_idlavado', primary_key=True)
