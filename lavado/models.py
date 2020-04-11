@@ -11,6 +11,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import date
 from django.utils.timezone import now
+from django.core.serializers.json import Serializer
 
 """
 class RolEmpleado(models.Model):
@@ -62,7 +63,6 @@ class Articulo(models.Model):
         db_table = 'articulo'
     def __str__(self): # __str__ for Python 3, __unicode__ for Python 2
         return self.nombre
-
 
 class Empleado(models.Model):
     idempleado = models.AutoField(primary_key=True)

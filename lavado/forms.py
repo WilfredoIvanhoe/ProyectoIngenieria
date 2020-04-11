@@ -6,4 +6,3 @@ class ArticuloForm(ModelForm):
     class Meta: 
         model = Articulo
         fields = '__all__'
-    

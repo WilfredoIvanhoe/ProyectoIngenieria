@@ -8,5 +8,8 @@ urlpatterns = [
     path('articulos/nuevo/', views.articulo_create, name="Nuevo Articulo"),
     path('articulos/editar/<int:id>/', views.articulo_edit, name="Editar Articulo"),
     path('articulos/editar/', views.articulo_edit, name="Articulo Editado"),
-    path('articulos/<int:page>/', views.articulos_view, name="Articulos"),
+    path('articulos/', views.articulos_view, name="Articulos"),
+    path('articulos/get/all/', views.articulos_get_all, name="Articulos all"),
+
+    path('lugares/get/all/', views.lugares_get_all, name="Lugares all"),
 ]

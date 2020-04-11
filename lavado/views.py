@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from lavado.forms import ArticuloForm
 from django.http import HttpResponse, HttpResponseRedirect
-from lavado.models import Articulo
+from django.http import JsonResponse
+
+from lavado.models import Articulo, LugarCompra
+from lavado.forms import ArticuloForm
+from lavado.serializer import ArticuloSerializer, LugaresSerializer
+
 # Create your views here.
 
 def index(request):
@@ -10,13 +14,16 @@ def index(request):
 def paquetes(request):
     return render(request, 'paquetes.html')
 
-def articulos_view(request, page):
-    print(page)
+def articulos_get_all(request):
+    articulos = Articulo.objects.select_related('fk_lugar_compra')
+    articulos_json = ArticuloSerializer(articulos)
+    ## return JsonResponse(, safe=False)
+    return  JsonResponse(articulos_json, safe=False)
+
+def articulos_view(request):
     if request.method == 'GET':
-        idx_1 = (page-1)*4
-        idx_2 = page*4
-        articulos = Articulo.objects.select_related('fk_lugar_compra').filter(idarticulo__gt=idx_1).filter(idarticulo__lte=idx_2)
-        return render(request, 'articulos_table.html', {'articulos': articulos, 'page': page})
+        articulos = Articulo.objects.select_related('fk_lugar_compra')
+        return render(request, 'articulos_table.html', {'articulos': articulos})
 
 def articulo_create(request):
     if request.method == 'POST':
@@ -34,6 +41,7 @@ def articulo_edit(request, id):
     articulo = Articulo.objects.get(pk=id)
     if request.method == 'POST':
         form = ArticuloForm(request.POST, instance=articulo)
+        print(form)
         if form.is_valid():
             response = form.save()
             return HttpResponse(response)
@@ -43,4 +51,8 @@ def articulo_edit(request, id):
         form = ArticuloForm(instance=articulo)
         return render(request, 'articulo_editar.html', {'form': form, 'id':id})
 
-        
+def lugares_get_all(request):
+    lugares = LugarCompra.objects.all()
+    json_res = LugaresSerializer(lugares)
+    ## return JsonResponse(, safe=False)
+    return  JsonResponse(json_res, safe=False)

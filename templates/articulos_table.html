@@ -1,33 +1,32 @@
-{% load lavado_extras %}
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Articulo</th>
-        <th>Descripcion</th>
-        <th>Precio</th>
-        <th>Cantidad</th>
-        <th>Código de barras</th> 
-        <th>Lugar de compra</th>
-        <th>Direccion</th>
-        <th>Editar</th>
-    </tr>
-    {% for articulo in articulos%}
-    <tr>
-        <td>{{ articulo.idarticulo }}</td>
-        <td>{{ articul.nombre }}</td>
-        <td>{{ articulo.descripcion }}</td>
-        <td>{{ articulo.precio }}</td>
-        <td>{{ articulo.cantidad }}</td>
-        <td>{{ articulo.codigo_barras }}</td>
-        <td>{{ articulo.fk_lugar_compra.nombre_tienda }}</td>
-        <td>{{ articulo.fk_lugar_compra.direccion }}</td>
-        <td><a href="/articulos/editar/{{articulo.idarticulo}}/">-</a></td>
-    </tr>
-    {% endfor %}     
-</table>
-{% if page == 1 %}
-    <a href="/articulos/{{page|add:1}}/">Siguiente</a>
-{% else %}
-    <a href="/articulos/{{page|subtract:1}}/">Anterior</a>
-    <a href="/articulos/{{page|add:1}}/">Siguiente</a>
-{% endif %}
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>AutoLavado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'css/tabulator.min.css' %}" rel="stylesheet">
+        <link href="{% static 'color/default.css' %}" rel="stylesheet">
+        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+        <!-- =======================================================
+        Theme Name: Maxim
+        Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
+        Author: BootstrapMade.com
+        Author URL: https://bootstrapmade.com
+        ======================================================= -->
+    </head>
+    <body>
+        {% csrf_token %}"
+        <div id='articulos-table'>
+        </div>
+    </body>  
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/tabulator.min.js' %}"></script>
+    <script src="{% static 'js/articulos/articulos-table.js' %}"></script>
+</html>
